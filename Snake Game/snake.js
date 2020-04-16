@@ -5,6 +5,7 @@ function Snake() {
     this.yspeed = 0;
     this.total = 0;
     this.tail = [];
+    this.sprite = loadImage('assets/aid.png');
 
     this.eat = function(pos) {
         var d = dist(this.x, this.y, pos.x, pos.y);
@@ -21,13 +22,17 @@ function Snake() {
         this.yspeed = y;
     }
 
-    this.death = function() {
+    this.death = function(enemies) {
         for (var i = 0; i < this.tail.length; i++) {
-            var pos = this.tail[i];
-            var d = dist(this.x, this.y, pos.x, pos.y);
-            if(d < 1) {
-                this.total = 0;
-                this.tail = [];
+            var tailPos = this.tail[i];
+            for (var j = 0; j < enemies.length; j++)
+            {
+                var enemy = enemies[j];
+                var d = dist(enemy.pos.x, enemy.pos.y, tailPos.x, tailPos.y);
+                if(d < 10) {
+                    this.total = 0;
+                    this.tail = [];
+                }
             }
         }
     }
@@ -57,10 +62,12 @@ function Snake() {
     this.render = function () {
         fill(255);
         for (var i = 0; i < this.tail.length; i++) {
-            rect(this.tail[i].x, this.tail[i].y, gridScale, gridScale);
+            //rect(this.tail[i].x, this.tail[i].y, gridScale, gridScale);
+            image(this.sprite, this.tail[i].x, this.tail[i].y);
         }
 
         fill(255);      
-        rect(this.x, this.y, gridScale, gridScale);
+        //rect(, gridScale, gridScale);
+        image(this.sprite, this.x, this.y );
     }
 }

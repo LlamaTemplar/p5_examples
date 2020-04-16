@@ -1,11 +1,23 @@
 var snake;
-var gridScale = 20;
+var gridScale = 30;
 var food;
+var enemies = [];
+var bg;
+var personInAidSprite; 
 
 function setup() {
   createCanvas(600,600);
+  bg = loadImage('assets/middleeastmap.png');
+  personInAidSprite = loadImage('assets/helpless.png');
   snake = new Snake;
   pickLocation();
+  
+ 
+  for(var i = 0; i < 10; i++)
+  {
+    enemies.push(new Enemy());
+  }
+
   frameRate(10);
 }
 
@@ -16,10 +28,16 @@ function pickLocation() {
   food.mult(gridScale);
 }
 
-
 function draw() {
-  background(51);
-  snake.death();
+  background(bg);
+
+  for(var i = 0; i < enemies.length; i++)
+  {
+    enemies[i].update();
+    enemies[i].render();
+  }
+
+  snake.death(enemies);
   snake.update();
   snake.render();
 
@@ -28,9 +46,10 @@ function draw() {
     pickLocation();
   }
 
-  fill(255,0,100);
+  fill(127, 255, 0);
   noStroke();
-  rect(food.x, food.y, gridScale, gridScale);
+  //rect(food.x, food.y, gridScale, gridScale);
+  image(personInAidSprite, food.x, food.y);
 
 }
 
