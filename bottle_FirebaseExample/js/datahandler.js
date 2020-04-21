@@ -35,7 +35,7 @@ function createNode(_nodeFolder, _nodeId, _nodeObject) {
     
 }
 
-//createNode(folderName, test, {text: "Owo"});
+//createNode(folderName, "test", {text: "Owo"});
        
     // the update method will update an existing node
 function updateNode(_nodeFolder, _nodeID, _updateObject) {
