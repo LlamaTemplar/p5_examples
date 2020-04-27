@@ -10,6 +10,7 @@ let messageInput;
 let sendMessageButton;
 let receiveMessageButton;
 let receivedMessage;
+let respondButton;
 let receivedDiv, sendDiv;
 
 function setup() {
@@ -22,10 +23,12 @@ function setup() {
   receiveMessageButton = document.querySelector("#receiveMsgBtn");
   receivedMessage = document.querySelector("#receivedMsg");
   receivedDiv = document.querySelector("#receivedDiv");
+  respondButton = document.querySelector('#respondBtn');
   sendDiv = document.querySelector("#sendDiv");
 
   sendMessageButton.addEventListener('click', sendMessage);
   receiveMessageButton.addEventListener('click', receiveMessage);
+  respondButton.addEventListener('click', respond);
 
   // Web app's Firebase configuration
   let config = {
@@ -71,12 +74,17 @@ function sendMessage()
     createP(`Sent message: ${nodeData["messageText"]}`);
 
     messageInput.value = '';
+
+    sendDiv.style.display = 'none';
+    receivedDiv.style.display = 'block';
   }
     
 }
 
 function receiveMessage()
 {
+
+  shuffleArray(fbDataArray);
 
   // recieve all messages that haven't been recieved
   for(let i = 0; i < fbDataArray.length; i++)
@@ -87,7 +95,10 @@ function receiveMessage()
 
       updateNode(folderName, fbDataArray[i].timestamp, {
         received: true
-      });
+      });  
+
+      receiveMessageButton.style.display = 'none';
+      respondButton.style.display = 'block';
 
       break;
     } else {
@@ -95,4 +106,29 @@ function receiveMessage()
     }
     
   }
+}
+
+function respond()
+{
+  receivedDiv.style.display = 'none';
+  sendDiv.style.display = 'block';
+}
+
+function shuffleArray(array)
+{
+  // iterate backwards through an array
+for (let i = array.length - 1; i > 0; i--) {
+
+  // grab random index from 0 to i
+  let randomIndex = Math.floor(Math.random() * (i + 1));
+
+  // swap elements array[i] and array[j]
+  [array[i], array[randomIndex]] = [array[randomIndex], array[i]]; // using "destructuring assignment" syntax
+
+  // same can be written as:
+  // let arrayItem = array[i]; // array item in original position array[i]
+  // array[i] = array[randomIndex]; // overwrite array[i] with new item at random index
+  // array[randomIndex] = arrayItem; // now move array item from original position into random position
+
+}
 }

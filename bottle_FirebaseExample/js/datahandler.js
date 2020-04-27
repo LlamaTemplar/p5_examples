@@ -2,6 +2,9 @@
 
 function gotData(data) {
 
+  //seed database
+  //seedDataBase(fortunes); careful, for some reason it keeps calling this
+
   // need to retrieve firebase data with val() method
   // this returns an object of all data
   fbData = data.val();
@@ -49,4 +52,21 @@ function updateNode(_nodeFolder, _nodeID, _updateObject) {
 
 function deleteNode(_nodeFolder, _nodeID) {
     firebase.database().ref(_nodeFolder + '/' + _nodeID).remove();
+}
+
+function seedDataBase(array) {
+
+  array.forEach(function(item)
+  {
+    let timestamp = Date.now();
+      
+      nodeData = {
+        messageText: item,
+        timestamp: timestamp,
+        received: false
+      }
+      
+      createNode(folderName, timestamp, nodeData);
+  });
+
 }

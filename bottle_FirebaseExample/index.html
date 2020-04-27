@@ -26,20 +26,22 @@
 
   <h1>FireBase Example</h1>
 
-  <h3>Send Message</h3>'
+  <h3>Send Message</h3>
   
   <div id='sendDiv'>
     <textarea id="msgInput" name="textbox" id="" cols="30" rows="10" placeholder="Type your message here"></textarea>
     <button id="sendMsgBtn" type="button" name="button">send message</button>
   </div>
 
-  <div id="receivedDiv">
+  <div class="hidden" id="receivedDiv">
     <button id="receiveMsgBtn">receive message</button>
     <p id="receivedMsg"></p>
+    <button class="hidden" id="respondBtn">respond</button>
   </div>
   
   <script src="js/sketch.js"></script>
   <script src="js/datahandler.js"></script>
+  <script src="js/fortunes.js"></script>
 
 
 </body>
